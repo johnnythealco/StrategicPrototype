@@ -8,26 +8,22 @@ public class ResourceListDisplay : MonoBehaviour
 
 	public Transform target;
 	public ResourceDisplay resourceDisplay;
-	protected List<ResourceType> resourceTypes;
 	protected List<Resource> resources;
 
 	List<ResourceDisplay> resourceDisplayList = new List<ResourceDisplay> ();
 
 	#region Delegates & Events
 
-	public delegate void ResourceTypeListDisplayDelegate (ResourceType _resourceType);
-
-	public event ResourceTypeListDisplayDelegate onResourceTypeClick;
-	public event ResourceTypeListDisplayDelegate onResourceTypeUpdate;
 
 	public delegate void ResourceListDisplayDelegate (Resource _resource);
 
 	public event ResourceListDisplayDelegate onResourceClick;
 	public event ResourceListDisplayDelegate onResourceUpdate;
+	public event ResourceListDisplayDelegate onResourceDelete;
 
-	public delegate void ResourceTypeListDisplayClose ();
+	public delegate void ResourceListDisplayClose ();
 
-	public event ResourceTypeListDisplayClose onClose;
+	public event ResourceListDisplayClose onClose;
 
 	public void Close ()
 	{
@@ -37,24 +33,6 @@ public class ResourceListDisplay : MonoBehaviour
 
 	#endregion
 
-	public void Prime (List<ResourceType> _resourceTypes)
-	{
-		clearList ();
-
-		resourceTypes = _resourceTypes;
-		foreach (var resource in resourceTypes)
-		{
-			ResourceDisplay listItem = (ResourceDisplay)Instantiate (resourceDisplay);
-			listItem.transform.SetParent (target, false);
-			listItem.Prime (resource);
-			listItem.gameObject.tag = "ResourceDisplay";
-			listItem.onClickType += OnResourceTypeClick;
-			listItem.onUpdateType += OnResourceTypeUpdate;
-
-			resourceDisplayList.Add (listItem);		
-			
-		}
-	}
 
 	public void Prime (List<Resource> _resources)
 	{
@@ -67,8 +45,9 @@ public class ResourceListDisplay : MonoBehaviour
 			listItem.transform.SetParent (target, false);
 			listItem.Prime (resource);
 			listItem.gameObject.tag = "ResourceDisplay";
-			listItem.onClickResource += OnResourceClick;
-			listItem.onUpdateResource += OnResoucreUpdate;
+			listItem.onClick += OnResourceClick;
+			listItem.onUpdate += OnResoucreUpdate;
+			listItem.onDelete += OnDeleteResource;
 
 			resourceDisplayList.Add (listItem);		
 
@@ -77,12 +56,13 @@ public class ResourceListDisplay : MonoBehaviour
 
 	#region Event Callers
 
-	void OnResourceTypeUpdate (ResourceType _resourceType)
+	void OnDeleteResource (Resource _resource)
 	{
-		if (onResourceTypeUpdate != null)
-			onResourceTypeUpdate.Invoke (_resourceType);
-
+		if (onResourceDelete != null)
+			onResourceDelete.Invoke (_resource);
 	}
+
+
 
 	void OnResoucreUpdate (Resource _resource)
 	{
@@ -91,17 +71,13 @@ public class ResourceListDisplay : MonoBehaviour
 		
 	}
 
-	void OnResourceTypeClick (ResourceType _resourceType)
-	{
-		if (onResourceTypeClick != null)
-			onResourceTypeClick.Invoke (_resourceType);
-	}
-
 	void OnResourceClick (Resource _resource)
 	{
 		if (onResourceClick != null)
 			onResourceClick.Invoke (_resource);
 	}
+
+
 
 	#endregion
 
@@ -109,8 +85,10 @@ public class ResourceListDisplay : MonoBehaviour
 	{
 		foreach (var item in resourceDisplayList)
 		{
-			item.onClickType -= OnResourceTypeClick;
-			item.onClickResource -= OnResourceClick;
+			item.onClick -= OnResourceClick;
+			item.onUpdate -= OnResoucreUpdate;
+			item.onDelete -= OnDeleteResource;
+
 		}
 
 		for (int i = 0; i < target.childCount; i++)
@@ -125,22 +103,8 @@ public class ResourceListDisplay : MonoBehaviour
 
 	void OnDestroy ()
 	{
-		foreach (var resource in resourceDisplayList)
-		{
-			//Unsubscribe form events
-
-			resource.onClickType -= OnResourceTypeClick;
-			resource.onUpdateType -= OnResourceTypeUpdate;
-
-
-			resource.onClickResource -= OnResourceClick;
-			resource.onUpdateResource -= OnResoucreUpdate;
-
-
-		}
+		clearList ();
 	}
-
-
 
 	public void destroy ()
 	{

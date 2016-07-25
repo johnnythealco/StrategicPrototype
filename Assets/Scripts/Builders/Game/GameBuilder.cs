@@ -6,10 +6,10 @@ public class GameBuilder : MonoBehaviour
 {
 	public Register register;
 	public GameBuilder gameBuilder;
-	public ResourceBuilder resourceBuilderPrefab;
+
 	public StructureTypeEditor structureEditorPrefab;
 	public RegionTypeEditor regionTypeEditorPrefab;
-	ResourceBuilder ResourceTypeBuilder;
+
 	StructureTypeEditor structureTypeEditor;
 	RegionTypeEditor regionTypeEditor;
 	StructureType newStructureType;
@@ -17,21 +17,21 @@ public class GameBuilder : MonoBehaviour
 
 	#region Resource Type Creation
 
-	public void CreateResourceType ()
-	{
-		gameBuilder.gameObject.SetActive (false);
-		ResourceTypeBuilder = (ResourceBuilder)Instantiate (resourceBuilderPrefab);
-
-		ResourceTypeBuilder.onComplete += ResourceBuilder_onComplete;
-	}
-
-
-	void ResourceBuilder_onComplete ()
-	{
-		ResourceTypeBuilder.destroy ();
-		ResourceTypeBuilder.onComplete -= ResourceBuilder_onComplete;
-		gameBuilder.gameObject.SetActive (true);
-	}
+	//	public void CreateResourceType ()
+	//	{
+	//		gameBuilder.gameObject.SetActive (false);
+	//		ResourceTypeBuilder = (ResourceBuilder)Instantiate (resourceBuilderPrefab);
+	//
+	//		ResourceTypeBuilder.onComplete += ResourceBuilder_onComplete;
+	//	}
+	//
+	//
+	//	void ResourceBuilder_onComplete ()
+	//	{
+	//		ResourceTypeBuilder.destroy ();
+	//		ResourceTypeBuilder.onComplete -= ResourceBuilder_onComplete;
+	//		gameBuilder.gameObject.SetActive (true);
+	//	}
 
 	#endregion
 

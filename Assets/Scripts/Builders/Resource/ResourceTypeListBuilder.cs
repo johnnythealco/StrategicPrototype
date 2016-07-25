@@ -6,12 +6,12 @@ public class ResourceTypeListBuilder : MonoBehaviour
 {
 	protected List<ResourceType> resourceTypes;
 	public Register register;
-	public ResourceListDisplay resourceListDisplayPrefab;
+	public ResourceTypeListDisplay resourceListDisplayPrefab;
 	public Transform target;
-	public ResourceDisplay resourceTypeDeleteDisplay;
+	public ResourceTypeDisplay resourceTypeDeleteDisplay;
 
-	ResourceListDisplay TypeSelect;
-	List<ResourceDisplay> resourceDisplayList = new List<ResourceDisplay> ();
+	ResourceTypeListDisplay TypeSelect;
+	List<ResourceTypeDisplay> resourceDisplayList = new List<ResourceTypeDisplay> ();
 	List<ResourceType> availableResourceTypes;
 
 	public delegate void ResourceTypeListUpdate (List<ResourceType> _resourceTypes);
@@ -59,28 +59,28 @@ public class ResourceTypeListBuilder : MonoBehaviour
 		resourceTypes = _resourcesTypes;
 		foreach (var resourceType in resourceTypes)
 		{
-			ResourceDisplay listItem = (ResourceDisplay)Instantiate (resourceTypeDeleteDisplay);
+			ResourceTypeDisplay listItem = (ResourceTypeDisplay)Instantiate (resourceTypeDeleteDisplay);
 			listItem.transform.SetParent (target, false);
 			listItem.Prime (resourceType);
 			listItem.gameObject.tag = "ResourceDisplay";
 			resourceDisplayList.Add (listItem);	
-			listItem.onDeleteResourceType += onDeleteResource;
+			listItem.onDelete += onDeleteResource;
 		}
 		ListUpdate ();
 	}
 
 	public void AddResourceType ()
 	{
-		TypeSelect = (ResourceListDisplay)Instantiate (resourceListDisplayPrefab);
+		TypeSelect = (ResourceTypeListDisplay)Instantiate (resourceListDisplayPrefab);
 		TypeSelect.Prime (availableResourceTypes);
-		TypeSelect.onResourceTypeClick += onTypeSelect;
+		TypeSelect.onClick += onTypeSelect;
 		TypeSelect.onClose += closeTypeSelect;
 
 	}
 
 	void closeTypeSelect ()
 	{
-		TypeSelect.onResourceTypeClick -= onTypeSelect;
+		TypeSelect.onClick -= onTypeSelect;
 		TypeSelect.onClose -= closeTypeSelect;
 		TypeSelect.destroy ();
 	}
@@ -93,7 +93,7 @@ public class ResourceTypeListBuilder : MonoBehaviour
 		if (!resourceTypes.Contains (_resourceType))
 			resourceTypes.Add (_resourceType);
 
-		TypeSelect.onResourceTypeClick -= onTypeSelect;
+		TypeSelect.onClick -= onTypeSelect;
 		TypeSelect.onClose -= closeTypeSelect;
 		TypeSelect.destroy ();
 		Prime (resourceTypes);

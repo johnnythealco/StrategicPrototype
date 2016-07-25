@@ -8,20 +8,27 @@ using System.Linq;
 public enum ResourceCategory
 {
 	Strategic = 0,
-	BasicGoods = 1,
-	LuxuryGoods = 2,
-	SpecialistsGoods = 3
+	Population = 1,
+	Nutrition = 2,
+	Shelter = 3,
+	Comfort = 4
 }
 
 [System.Serializable]
-public class ResourceType : System.Object
+public class ResourceType : Asset
 {
-	public string name;
-	public Sprite icon;
+
 	public ResourceCategory Category;
-	public float baseprice;
-	public int prosperity;
-	public int health;
+	public int level;
+
+	public ResourceType ()
+	{
+		this.name = "";
+		this.descriptions = "";
+		this.Category = ResourceCategory.Strategic;
+		this.level = 0;
+	}
+
 
 
 	public static List<string> getCategories ()

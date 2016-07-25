@@ -6,13 +6,13 @@ public class JKTesting : MonoBehaviour
 {
 	public Register register;
 
-	public RegionTypeListEditor regionTypeListEditor;
+	public ResourceTypeListEditor resourceTypeListEditor;
 
 
 	void Start ()
 	{
-		var regions = register.regionTypeRegister.MasterList; 
-		regionTypeListEditor.Prime (regions);
+		var resources = register.resourceTypeRegister.MasterList; 
+		resourceTypeListEditor.Prime (resources);
 
 	}
 

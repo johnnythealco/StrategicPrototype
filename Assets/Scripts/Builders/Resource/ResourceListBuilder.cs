@@ -6,11 +6,11 @@ using UnityEngine.UI;
 public class ResourceListBuilder : MonoBehaviour
 {
 	public Register register;
-	public ResourceListDisplay resourceListDisplayPrefab;
+	public ResourceTypeListDisplay resourceListDisplayPrefab;
 	public Transform target;
-	public ResourceDisplay resourceTypeDeleteDisplay;
+	public ResourceDisplay resourceDisplay;
 
-	ResourceListDisplay TypeSelect;
+	ResourceTypeListDisplay TypeSelect;
 	List<ResourceDisplay> resourceDisplayList = new List<ResourceDisplay> ();
 	List<Resource> resources = new List<Resource> ();
 	List<ResourceType> availableResourceTypes;
@@ -57,7 +57,7 @@ public class ResourceListBuilder : MonoBehaviour
 		var resource = new Resource (_resourceType.name, 0);
 		resources.Add (resource);
 	
-		TypeSelect.onResourceTypeClick -= OnTypeSelect;
+		TypeSelect.onClick -= OnTypeSelect;
 		TypeSelect.onClose -= closeTypeSelect;
 		TypeSelect.destroy ();
 		Prime (resources);
@@ -79,12 +79,12 @@ public class ResourceListBuilder : MonoBehaviour
 		resources = _resources;
 		foreach (var resource in resources)
 		{
-			ResourceDisplay listItem = (ResourceDisplay)Instantiate (resourceTypeDeleteDisplay);
+			ResourceDisplay listItem = (ResourceDisplay)Instantiate (resourceDisplay);
 			listItem.transform.SetParent (target, false);
 			listItem.Prime (resource);
 			listItem.gameObject.tag = "ResourceDisplay";		
-			listItem.onUpdateResource += OnResourceUpdate;
-			listItem.onDeleteResource += onDeleteResource;
+			listItem.onUpdate += OnResourceUpdate;
+			listItem.onDelete += onDeleteResource;
 			resourceDisplayList.Add (listItem);		
 		}			
 
@@ -105,18 +105,18 @@ public class ResourceListBuilder : MonoBehaviour
 
 	public void AddResourceType ()
 	{
-		TypeSelect = (ResourceListDisplay)Instantiate (resourceListDisplayPrefab);
+		TypeSelect = (ResourceTypeListDisplay)Instantiate (resourceListDisplayPrefab);
 		List<ResourceType> _resourceTypes = new List<ResourceType> (availableResourceTypes);
 
 		TypeSelect.Prime (_resourceTypes);
-		TypeSelect.onResourceTypeClick += OnTypeSelect;
+		TypeSelect.onClick += OnTypeSelect;
 		TypeSelect.onClose += closeTypeSelect;
 
 	}
 
 	void closeTypeSelect ()
 	{
-		TypeSelect.onResourceTypeClick -= OnTypeSelect;
+		TypeSelect.onClick -= OnTypeSelect;
 		TypeSelect.onClose -= closeTypeSelect;
 		TypeSelect.destroy ();
 	}
@@ -125,14 +125,17 @@ public class ResourceListBuilder : MonoBehaviour
 	{
 		if (availableResourceTypes == null)
 			availableResourceTypes = new List<ResourceType> ();
+		
 		availableResourceTypes.AddRange (register.AllResources);
 	}
 
 	void clearList ()
 	{
-		foreach (var item in resourceDisplayList)
+		foreach (var resource in resourceDisplayList)
 		{
-			item.onClickResource -= OnResourceClick;
+			resource.onDelete -= onDeleteResource;
+			resource.onUpdate -= OnResourceUpdate;
+
 		}
 
 		for (int i = 0; i < target.childCount; i++)
@@ -147,12 +150,7 @@ public class ResourceListBuilder : MonoBehaviour
 
 	void OnDestroy ()
 	{
-		foreach (var resource in resourceDisplayList)
-		{
-			resource.onClickResource -= OnResourceClick;
-			resource.onUpdateResource -= OnResourceUpdate;
-
-		}
+		clearList ();
 	}
 
 }
