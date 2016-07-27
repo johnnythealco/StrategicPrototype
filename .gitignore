@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/
@@ -28,6 +29,26 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+=======
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
+>>>>>>> origin/master
 
 # =========================
 # Operating System Files
@@ -57,6 +78,7 @@ sysinfo.txt
 Network Trash Folder
 Temporary Items
 .apdisk
+<<<<<<< HEAD
 
 # Windows
 # =========================
@@ -79,3 +101,5 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+=======
+>>>>>>> origin/master
