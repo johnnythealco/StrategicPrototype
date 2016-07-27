@@ -2,10 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.UI;
 
 public class ResourceTypeListEditor : MonoBehaviour
 {
-	protected List<ResourceType> resourceTypeList;
+	protected List<ResourceType> workingList;
+	protected List<ResourceType> mainList;
 
 	public ResourceTypeEditor resourceTypeEditor;
 	public ResourceTypeListDisplay resourceListDisplay;
@@ -13,26 +15,48 @@ public class ResourceTypeListEditor : MonoBehaviour
 
 	ResourceType newResourceType;
 	ResourceType selectedResourceType;
-
+	ResourceType backupResourceType;
 
 	public void Prime (List<ResourceType> _resourceTypeList)
-	{
-		resourceTypeList = _resourceTypeList;
+	{	
+		
+		mainList = _resourceTypeList;
+		workingList = _resourceTypeList;
 		resourceTypeEditor.gameObject.SetActive (false);
 		resourceListDisplay.gameObject.SetActive (true);
-		resourceListDisplay.Prime (resourceTypeList);
+		resourceListDisplay.Prime (workingList);
 		resourceListDisplay.onClick += onClickResource;
+		resourceListDisplay.onFilter += onFilterResourceList;
+		resourceListDisplay.onRemoveFilter += onFilterRemoved;
 		navagationBar.SetActive (false);
+	}
+
+	void onFilterResourceList (List<ResourceType> _resourceTypes)
+	{			
+		workingList = _resourceTypes;
+	}
+
+	void onFilterRemoved ()
+	{
+//		foreach (var item in mainList)
+//		{
+//			if (!workingList.Contains (item))
+//			{
+//				workingList.Add (item);
+//			}
+//		}
+//		Prime (workingList);
 
 	}
+
 
 	void onClickResource (ResourceType _resourceType)
 	{
 		selectedResourceType = _resourceType;
-		var index = resourceTypeList.IndexOf (_resourceType);
+		var index = workingList.IndexOf (_resourceType);
 		resourceListDisplay.gameObject.SetActive (false);
 		resourceTypeEditor.gameObject.SetActive (true);
-		resourceTypeEditor.Prime (resourceTypeList [index]);
+		resourceTypeEditor.Prime (workingList [index]);
 		navagationBar.SetActive (true);
 		resourceTypeEditor.onUpdateType += onUpdateResourceType;
 	}
@@ -45,13 +69,12 @@ public class ResourceTypeListEditor : MonoBehaviour
 	public void CreateResourceType ()
 	{
 		newResourceType = new ResourceType ();	
-		resourceTypeList.Add (newResourceType);
-
+		workingList.Add (newResourceType);
 		resourceListDisplay.gameObject.SetActive (false);	
 		resourceTypeEditor.gameObject.SetActive (true);	
 
-		resourceTypeEditor.Prime (resourceTypeList [resourceTypeList.Count () - 1]);
-		selectedResourceType = resourceTypeList [resourceTypeList.Count () - 1];
+		resourceTypeEditor.Prime (workingList [workingList.Count () - 1]);
+		selectedResourceType = workingList [workingList.Count () - 1];
 		navagationBar.SetActive (true);
 
 
@@ -59,72 +82,92 @@ public class ResourceTypeListEditor : MonoBehaviour
 
 	public void Previous ()
 	{
-		var index = resourceTypeList.IndexOf (selectedResourceType);
+		var index = workingList.IndexOf (selectedResourceType);
 
 		if (index > 0)
 		{
-			resourceTypeEditor.Prime (resourceTypeList [index - 1]);
-			selectedResourceType = resourceTypeList [index - 1];
+			resourceTypeEditor.Prime (workingList [index - 1]);
+			selectedResourceType = workingList [index - 1];
 		} else
 		{
-			resourceTypeEditor.Prime (resourceTypeList [resourceTypeList.Count () - 1]);
-			selectedResourceType = resourceTypeList [resourceTypeList.Count () - 1];
+			resourceTypeEditor.Prime (workingList [workingList.Count () - 1]);
+			selectedResourceType = workingList [workingList.Count () - 1];
 		}
 	}
 
 	public void Next ()
 	{
-		var index = resourceTypeList.IndexOf (selectedResourceType);
+		var index = workingList.IndexOf (selectedResourceType);
 
-		if (index < resourceTypeList.Count () - 1)
+		if (index < workingList.Count () - 1)
 		{
-			resourceTypeEditor.Prime (resourceTypeList [index + 1]);
-			selectedResourceType = resourceTypeList [index + 1];
+			resourceTypeEditor.Prime (workingList [index + 1]);
+			selectedResourceType = workingList [index + 1];
 
 		} else
 		{
-			resourceTypeEditor.Prime (resourceTypeList [0]);
-			selectedResourceType = resourceTypeList [0];
+			resourceTypeEditor.Prime (workingList [0]);
+			selectedResourceType = workingList [0];
 		}
 
 	}
 
 	public void Cancel ()
 	{
-		resourceListDisplay.gameObject.SetActive (false);
-		navagationBar.SetActive (false);
-		resourceListDisplay.Prime (resourceTypeList);
+		resourceTypeEditor.gameObject.SetActive (false);
 		resourceListDisplay.gameObject.SetActive (true);
+		resourceListDisplay.Prime (workingList);
+		navagationBar.SetActive (false);
 	}
 
 	public void Complete ()
 	{		
 		resourceTypeEditor.gameObject.SetActive (false);
-		navagationBar.SetActive (false);
-		resourceListDisplay.Prime (resourceTypeList);
 		resourceListDisplay.gameObject.SetActive (true);
+		resourceListDisplay.Prime (workingList);
+		navagationBar.SetActive (false);
+
+		foreach (var item in workingList)
+		{
+			if (!mainList.Contains (item))
+				mainList.Add (item);
+		}
 
 	}
 
 	public void Delete ()
 	{		
-		var index = resourceTypeList.IndexOf (selectedResourceType);
-		resourceTypeList.Remove (selectedResourceType);
+		var index = workingList.IndexOf (selectedResourceType);
+		workingList.Remove (selectedResourceType);
 
-		if (index < resourceTypeList.Count () - 1)
+		if (mainList.Contains (selectedResourceType))
+			mainList.Remove (selectedResourceType);
+
+		if (index < workingList.Count () - 1)
 		{
-			resourceTypeEditor.Prime (resourceTypeList [index + 1]);
-			selectedResourceType = resourceTypeList [index + 1];
+			resourceTypeEditor.Prime (workingList [index + 1]);
+			selectedResourceType = workingList [index + 1];
 
 		} else
 		{
-			resourceTypeEditor.Prime (resourceTypeList [0]);
-			selectedResourceType = resourceTypeList [0];
+			resourceTypeEditor.Prime (workingList [0]);
+			selectedResourceType = workingList [0];
 		}
 
 
 	}
 
+	void clearList ()
+	{
+		resourceListDisplay.onClick -= onClickResource;
+		resourceListDisplay.onFilter -= onFilterResourceList;
+		resourceListDisplay.onRemoveFilter -= onFilterRemoved;
+	}
+
+	void OnDestroy ()
+	{
+		clearList ();
+	}
 
 
 

@@ -29,11 +29,80 @@ public class ResourceType : Asset
 		this.level = 0;
 	}
 
-
-
 	public static List<string> getCategories ()
 	{
 		return Enum.GetNames (typeof(ResourceCategory)).ToList ();
+	}
+
+	public static List<string> getLevels ()
+	{
+		var result = new List<string> ();
+		for (int i = 0; i < 8; i++)
+		{
+			result.Add ("Level " + i.ToString ());
+		}
+
+		return result;
+	}
+
+	public static List<string> GetNames (List<ResourceType> _resourceTypeList)
+	{
+		var result = new List<string> ();
+
+		foreach (var item  in _resourceTypeList)
+		{			
+			result.Add (item.name);
+		}
+		return result;
+	}
+
+	public static List<ResourceType> FilterListByCategory (List<ResourceType> _resourceTypeList, ResourceCategory _category)
+	{
+		var result = new List<ResourceType> ();
+
+		foreach (var item  in _resourceTypeList)
+		{
+			if (item.Category == _category)
+				result.Add (item);
+
+		}
+		return result;
+	}
+
+	public static List<ResourceType> FilterListByLevel (List<ResourceType> _resourceTypeList, int _level)
+	{
+		var result = new List<ResourceType> ();
+
+		foreach (var item  in _resourceTypeList)
+		{
+			if (item.level == _level)
+				result.Add (item);
+
+		}
+		return result;
+	}
+
+	public static List<ResourceType>  SearchList (List<ResourceType> _List, string _keyword)
+	{
+		var result = new List<ResourceType> ();
+	
+		var resultList = GetNames (_List).FindAll (delegate(string s)
+		{
+			return s.Contains (_keyword);
+		});
+
+		foreach (var name in resultList)
+		{
+			foreach (var resource in _List)
+			{
+				if (resource.name == name)
+					result.Add (resource);
+			}
+		}
+
+		return result;
+	
+	
 	}
 }
 
