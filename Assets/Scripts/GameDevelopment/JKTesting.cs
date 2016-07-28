@@ -7,13 +7,13 @@ public class JKTesting : MonoBehaviour
 {
 	public Register register;
 
-	public ResourceTypeListEditor resourceTypeListEditor;
+	public StructureTypeListEditor ListEditor;
 
 
 	void Start ()
 	{
-		var resources = register.resourceTypeRegister.MasterList; 
-		resourceTypeListEditor.Prime (resources);
+		var list = register.structureRegister.MasterList; 
+		ListEditor.Prime (list);
 	
 
 	}

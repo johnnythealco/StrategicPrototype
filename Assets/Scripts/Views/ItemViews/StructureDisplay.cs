@@ -34,12 +34,6 @@ public class StructureDisplay : MonoBehaviour
 			description.text = structureType.descriptions;
 		if (icon != null)
 			icon.sprite = structureType.smallImage;
-		if (cost != null)
-			cost.text = structureType.cost.ToString ();
-		if (influence != null)
-			influence.text = structureType.influence.ToString ();
-		
-
 	}
 
 	public void Click ()

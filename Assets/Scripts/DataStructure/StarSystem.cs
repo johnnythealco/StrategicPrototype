@@ -57,12 +57,8 @@ public class RegionType : Asset
 [System.Serializable]
 public class StructureType : Asset
 {
-	public StructureCategory category;
-	public int cost;
-	public int influence;
+	public StructureCategory Category;
 	public Resources resourceCost;
-
-	public CoreResource directEffect;
 
 	public Resources inputs;
 	public Resources outputs;
@@ -71,10 +67,7 @@ public class StructureType : Asset
 	{
 		this.name = "Untitled";
 		this.descriptions = "";
-		this.cost = 0;
-		this.influence = 0;
 		this.resourceCost = new Resources ();
-		this.directEffect = new CoreResource ();
 		this.inputs = new Resources ();
 		this.outputs = new Resources ();
 
@@ -84,8 +77,6 @@ public class StructureType : Asset
 	{
 
 		if (_structureType.name == null || _structureType.name == "Untitled")
-			return false;
-		if (_structureType.directEffect == null)
 			return false;
 		if (_structureType.inputs == null)
 			return false;
@@ -100,6 +91,53 @@ public class StructureType : Asset
 	public static List<string> getCategories ()
 	{
 		return Enum.GetNames (typeof(StructureCategory)).ToList ();
+	}
+
+	public static List<string> GetNames (List<StructureType> _structureTypeList)
+	{
+		var result = new List<string> ();
+
+		foreach (var item  in _structureTypeList)
+		{			
+			result.Add (item.name);
+		}
+		return result;
+	}
+
+	public static List<StructureType> FilterListByCategory (List<StructureType> _structureTypeList, StructureCategory _category)
+	{
+		var result = new List<StructureType> ();
+
+		foreach (var item  in _structureTypeList)
+		{
+			if (item.Category == _category)
+				result.Add (item);
+
+		}
+		return result;
+	}
+
+	public static List<StructureType>  SearchList (List<StructureType> _List, string _keyword)
+	{
+		var result = new List<StructureType> ();
+
+		var resultList = GetNames (_List).FindAll (delegate(string s)
+		{
+			return s.Contains (_keyword);
+		});
+
+		foreach (var name in resultList)
+		{
+			foreach (var structure in _List)
+			{
+				if (structure.name == name)
+					result.Add (structure);
+			}
+		}
+
+		return result;
+
+
 	}
 	
 }

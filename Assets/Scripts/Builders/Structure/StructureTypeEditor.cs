@@ -8,11 +8,8 @@ public class StructureTypeEditor : MonoBehaviour
 	public Register register;
 	public InputField displaynameInput;
 	public InputField descriptionInput;
-	public InputField creditCostInput;
-	public InputField influenceCostInput;
 	public Dropdown categoryInput;
 	public ResourceListBuilder resourceCostBuilder;
-	public CoreResourceDisplay directEffectInput;
 	public ResourceListBuilder InputsListBuilder;
 	public ResourceListBuilder OutputsListBuilder;
 
@@ -24,7 +21,7 @@ public class StructureTypeEditor : MonoBehaviour
 
 	public delegate void StructureTypeUpdateDelegate (StructureType _structureType);
 
-	public event StructureTypeUpdateDelegate onUpdate;
+	public event StructureTypeUpdateDelegate onUpdateType;
 
 	public delegate void StructureTypeUpdateCompleteDelegate (StructureType _structureType);
 
@@ -54,9 +51,6 @@ public class StructureTypeEditor : MonoBehaviour
 		}
 	}
 
-
-
-
 	public void Prime (StructureType _structureType)
 	{
 		structureType = _structureType; 
@@ -65,12 +59,8 @@ public class StructureTypeEditor : MonoBehaviour
 			displaynameInput.text = structureType.name;
 		if (descriptionInput != null)
 			descriptionInput.text = structureType.descriptions;
-		if (creditCostInput != null)
-			creditCostInput.text = structureType.cost.ToString ();
-		if (influenceCostInput != null)
-			influenceCostInput.text = structureType.influence.ToString ();
 		if (categoryInput != null)
-			categoryInput.value = (int)structureType.category;
+			categoryInput.value = (int)structureType.Category;
 
 		if (resourceCostBuilder != null)
 		{
@@ -78,12 +68,6 @@ public class StructureTypeEditor : MonoBehaviour
 			resourceCostBuilder.SetResourceTypes (register.StrategicResources);
 			resourceCostBuilder.onResourceUpdate += onResourceCostUpdat;
 		}
-		if (directEffectInput != null)
-		{
-			directEffectInput.Prime (structureType.directEffect);
-			directEffectInput.onUpdateResource += onUpdateDirectEffect;
-		}
-
 		if (InputsListBuilder != null)
 		{
 			InputsListBuilder.Prime (structureType.inputs.list);
@@ -100,31 +84,23 @@ public class StructureTypeEditor : MonoBehaviour
 	void onResourceCostUpdat (List<Resource> _resources)
 	{
 		structureType.resourceCost.list = _resources;
-		if (onUpdate != null)
-			onUpdate.Invoke (structureType);
+		if (onUpdateType != null)
+			onUpdateType.Invoke (structureType);
 	}
 
 	void onUpdateOutputs (List<Resource> _resources)
 	{
 		structureType.outputs.list = _resources;
-		if (onUpdate != null)
-			onUpdate.Invoke (structureType);
+		if (onUpdateType != null)
+			onUpdateType.Invoke (structureType);
 	}
 
 	void onUpdateInputs (List<Resource> _resources)
 	{
 		structureType.inputs.list = _resources;
-		if (onUpdate != null)
-			onUpdate.Invoke (structureType);
+		if (onUpdateType != null)
+			onUpdateType.Invoke (structureType);
 	}
-
-	void onUpdateDirectEffect (CoreResource _coreResource)
-	{
-		structureType.directEffect = _coreResource;
-		if (onUpdate != null)
-			onUpdate.Invoke (structureType);
-	}
-
 
 	public void GetInput ()
 	{
@@ -132,10 +108,8 @@ public class StructureTypeEditor : MonoBehaviour
 			structureType.name = displaynameInput.text;
 		if (descriptionInput != null)
 			structureType.descriptions = descriptionInput.text;
-		if (creditCostInput != null)
-			structureType.cost = int.Parse (creditCostInput.text);
-		if (influenceCostInput != null)
-			structureType.influence = int.Parse (influenceCostInput.text);
+		if (categoryInput != null)
+			structureType.Category = (StructureCategory)categoryInput.value;
 	}
 
 	public void complete ()
@@ -150,18 +124,11 @@ public class StructureTypeEditor : MonoBehaviour
 			onCancel.Invoke (structureType);
 	}
 
-
 	void OnDestroy ()
 	{
-		
-		directEffectInput.onUpdateResource -= onUpdateDirectEffect;
 		InputsListBuilder.onResourceUpdate -= onUpdateInputs;
 		OutputsListBuilder.onResourceUpdate -= onUpdateOutputs;
-
-
 	}
-
-
 
 	public void destroy ()
 	{

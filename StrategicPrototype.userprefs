@@ -1,10 +1,18 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Views\ListViews\ResourceTypeListDisplay.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Builders\Structure\StructureTypeEditor.cs">
     <Files>
-      <File FileName="Assets\Scripts\DataStructure\ResourceType.cs" Line="47" Column="17" />
-      <File FileName="Assets\Scripts\Views\ListViews\ResourceTypeListDisplay.cs" Line="108" Column="27" />
-      <File FileName="Assets\Scripts\Builders\Resource\ResourceTypeListEditor.cs" Line="41" Column="1" />
+      <File FileName="Assets\Scripts\GameDevelopment\JKTesting.cs" Line="16" Column="25" />
+      <File FileName="Assets\Scripts\DataStructure\ResourceType.cs" Line="106" Column="3" />
+      <File FileName="Assets\Scripts\Builders\Resource\ResourceTypeListEditor.cs" Line="12" Column="27" />
+      <File FileName="Assets\Scripts\Views\ItemViews\ResourceDisplay.cs" Line="35" Column="3" />
+      <File FileName="Assets\Scripts\Views\ItemViews\ResourceTypeDisplay.cs" Line="14" Column="2" />
+      <File FileName="Assets\Scripts\Builders\Structure\StructureTypeEditor.cs" Line="112" Column="68" />
+      <File FileName="Assets\Scripts\DataStructure\StarSystem.cs" Line="120" Column="92" />
+      <File FileName="Assets\Scripts\Views\ItemViews\StructureDisplay.cs" Line="27" Column="50" />
+      <File FileName="Assets\Scripts\Views\ListViews\StructureTypeListDisplay.cs" Line="157" Column="1" />
+      <File FileName="Assets\Scripts\Builders\Structure\StructureTypeListEditor.cs" Line="28" Column="37" />
+      <File FileName="Assets\Scripts\Builders\Resource\ResourceTypeEditor.cs" Line="59" Column="66" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

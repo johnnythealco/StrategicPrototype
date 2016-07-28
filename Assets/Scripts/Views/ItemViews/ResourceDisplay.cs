@@ -7,6 +7,7 @@ public class ResourceDisplay : MonoBehaviour
 	protected Resource resource;
 
 	public Text displayname;
+	public Image icon;
 	public Text value;
 	public InputField valueInput;
 	public Button increaseButton;
@@ -31,6 +32,8 @@ public class ResourceDisplay : MonoBehaviour
 
 		if (displayname != null)
 			displayname.text = resource.resource;
+//		if (icon != null || resource.type.smallImage != null)
+//			icon.sprite = resource.type.smallImage;
 		if (value != null)
 			value.text = resource.value.ToString ();
 		if (valueInput != null)
