@@ -13,10 +13,7 @@ public class ResourceTypeListDisplay : MonoBehaviour
 	protected List<ResourceType> filteredList;
 	protected List<ResourceType> fullList;
 
-<<<<<<< HEAD
 	public InputField searchField;
-=======
->>>>>>> origin/master
 	public Dropdown CategoryFilter;
 	public Toggle CategoryToggel;
 	public Dropdown LevelFilter;
@@ -85,10 +82,6 @@ public class ResourceTypeListDisplay : MonoBehaviour
 		}
 	}
 
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
 	void FilteredPrime (List<ResourceType> _resourceTypes)
 	{
 		if (resourceTypes.Count () >= fullList.Count ())
@@ -110,11 +103,8 @@ public class ResourceTypeListDisplay : MonoBehaviour
 
 		}
 
-<<<<<<< HEAD
 		searchField.text = "";
 
-=======
->>>>>>> origin/master
 	}
 
 	public void FilterList ()
@@ -132,11 +122,7 @@ public class ResourceTypeListDisplay : MonoBehaviour
 			return;
 		}
 
-<<<<<<< HEAD
 		if (CategoryToggel.isOn || LevelToggel.isOn || searchField.text.Length > 0)
-=======
-		if (CategoryToggel.isOn || LevelToggel.isOn)
->>>>>>> origin/master
 		{	
 			if (CategoryToggel.isOn)
 			{
@@ -148,7 +134,6 @@ public class ResourceTypeListDisplay : MonoBehaviour
 				var _level = LevelFilter.value;  
 				filteredList = ResourceType.FilterListByLevel (filteredList, _level); 
 			}
-<<<<<<< HEAD
 
 			if (searchField.text.Length > 0)
 			{
@@ -156,8 +141,6 @@ public class ResourceTypeListDisplay : MonoBehaviour
 				filteredList = ResourceType.SearchList (filteredList, keyword);
 
 			}
-=======
->>>>>>> origin/master
 			FilteredPrime (filteredList);
 
 			if (onFilter != null)
@@ -201,10 +184,6 @@ public class ResourceTypeListDisplay : MonoBehaviour
 		}
 	}
 
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
 	#region Event Callers
 
 	void OnResourceTypeUpdate (ResourceType _resourceType)
@@ -250,10 +229,5 @@ public class ResourceTypeListDisplay : MonoBehaviour
 		
 		Destroy (gameObject);
 	}
-<<<<<<< HEAD
 		
-=======
-
-
->>>>>>> origin/master
 }

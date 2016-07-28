@@ -29,11 +29,6 @@ public class ResourceType : Asset
 		this.level = 0;
 	}
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> origin/master
 	public static List<string> getCategories ()
 	{
 		return Enum.GetNames (typeof(ResourceCategory)).ToList ();
@@ -50,7 +45,6 @@ public class ResourceType : Asset
 		return result;
 	}
 
-<<<<<<< HEAD
 	public static List<string> GetNames (List<ResourceType> _resourceTypeList)
 	{
 		var result = new List<string> ();
@@ -62,8 +56,6 @@ public class ResourceType : Asset
 		return result;
 	}
 
-=======
->>>>>>> origin/master
 	public static List<ResourceType> FilterListByCategory (List<ResourceType> _resourceTypeList, ResourceCategory _category)
 	{
 		var result = new List<ResourceType> ();
@@ -89,7 +81,6 @@ public class ResourceType : Asset
 		}
 		return result;
 	}
-<<<<<<< HEAD
 
 	public static List<ResourceType>  SearchList (List<ResourceType> _List, string _keyword)
 	{
@@ -113,8 +104,6 @@ public class ResourceType : Asset
 	
 	
 	}
-=======
->>>>>>> origin/master
 }
 
 [System.Serializable]

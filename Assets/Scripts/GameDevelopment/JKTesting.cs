@@ -1,10 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-<<<<<<< HEAD
 using System;
-=======
->>>>>>> origin/master
 
 public class JKTesting : MonoBehaviour
 {
@@ -17,18 +14,12 @@ public class JKTesting : MonoBehaviour
 	{
 		var resources = register.resourceTypeRegister.MasterList; 
 		resourceTypeListEditor.Prime (resources);
-<<<<<<< HEAD
 	
-=======
->>>>>>> origin/master
 
 	}
 
 
 
 
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
 }
