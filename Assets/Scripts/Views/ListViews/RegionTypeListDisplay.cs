@@ -1,24 +1,41 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
+using System.Linq;
 
 public class RegionTypeListDisplay : MonoBehaviour
 {
 	public Transform target;
-	public RegionDisplay regionDisplayPrefab;
+	public RegionDisplay regionDisplay;
+	protected List<RegionType> workingList;
+	protected List<RegionType> filteredList;
+	protected List<RegionType> fullList;
 
-	protected List<RegionType> regionTypes;
-	protected List<RegionDisplay> regionDisplays;
+	public InputField searchField;
+	public Dropdown CategoryFilter;
+	public Toggle CategoryToggel;
+
+	RegionType newRegionType;
+
+
+	List<RegionDisplay> regionDisplayList = new List<RegionDisplay> ();
 
 	#region Delegates & Events
 
-	public delegate void RegionTypeDisplayClick (RegionType _regionType);
+	public delegate void RegionTypeDisplayDelegate (RegionType _regionType);
 
-	public event RegionTypeDisplayClick onClick;
+	public delegate void RegionTypeListDisplayDelegate (List<RegionType>  _regionTypes);
+
+	public event RegionTypeDisplayDelegate onClick;
+	public event RegionTypeDisplayDelegate onUpdate;
+	public event RegionTypeListDisplayDelegate onFilter;
+
 
 	public delegate void RegionTypeListDisplayClose ();
 
 	public event RegionTypeListDisplayClose onClose;
+	public event RegionTypeListDisplayClose onRemoveFilter;
 
 	public void Close ()
 	{
@@ -26,46 +43,143 @@ public class RegionTypeListDisplay : MonoBehaviour
 			onClose.Invoke ();
 	}
 
-
 	#endregion
 
-	public void Prime (List<RegionType> _regionTypes)
+	void Start ()
 	{
-		regionTypes = _regionTypes;
-
-		clearList ();
-
-
-		foreach (var structure in regionTypes)
+		if (CategoryFilter != null)
 		{
-			RegionDisplay listItem = (RegionDisplay)Instantiate (regionDisplayPrefab); 
-			listItem.transform.SetParent (target, false);
-			listItem.Prime (structure);
-			listItem.gameObject.tag = "RegionDisplay";
-			listItem.onClick += onClickListItem;
-
-
-			regionDisplays.Add (listItem);		
+			CategoryFilter.ClearOptions (); 
+			CategoryFilter.AddOptions (RegionType.getCategories ()); 
+			CategoryFilter.interactable = false;
 		}
 
 	}
 
-	void onClickListItem (RegionType _regionType)
+	public void Prime (List<RegionType> _regionTypes)
 	{
-		if (onClick != null)
-			onClick.Invoke (_regionType);
+		clearList ();
+
+		workingList = _regionTypes;
+		fullList = workingList;
+		foreach (var region in workingList)
+		{
+			RegionDisplay listItem = (RegionDisplay)Instantiate (regionDisplay);
+			listItem.transform.SetParent (target, false);
+			listItem.Prime (region);
+			listItem.gameObject.tag = "RegionDisplay";
+			listItem.onClick += OnRegionTypeClick;
+
+			regionDisplayList.Add (listItem);		
+
+		}
+	}
+
+	void FilteredPrime (List<RegionType> _regionTypes)
+	{
+		if (workingList.Count () >= fullList.Count ())
+			fullList = workingList;
+
+		clearList ();
+
+		workingList = _regionTypes;
+		foreach (var region in workingList)
+		{
+			RegionDisplay listItem = (RegionDisplay)Instantiate (regionDisplay);
+			listItem.transform.SetParent (target, false);
+			listItem.Prime (region);
+			listItem.gameObject.tag = "RegionDisplay";
+			listItem.onClick += OnRegionTypeClick;
+
+			regionDisplayList.Add (listItem);		
+
+		}
+
+		searchField.text = "";
 
 	}
 
+	public void FilterList ()
+	{
+		filteredList = fullList;
+		if (CategoryFilter == null || CategoryToggel == null)
+		{
+			Debug.Log ("Filter Reference nt Found!"); 
+			return;
+		}
+
+
+		if (CategoryToggel.isOn || searchField.text.Length > 0)
+		{	
+			if (CategoryToggel.isOn)
+			{
+				var _category = (RegionCategory)CategoryFilter.value; 
+				filteredList = RegionType.FilterListByCategory (filteredList, _category); 
+			}
+
+			if (searchField.text.Length > 0)
+			{
+				var keyword = searchField.text; 
+				filteredList = RegionType.SearchList (filteredList, keyword);
+
+			}
+			FilteredPrime (filteredList);
+
+			if (onFilter != null)
+				onFilter.Invoke (filteredList);
+
+			return;
+		} else
+		{
+			Prime (fullList);
+
+			if (onRemoveFilter != null)
+				onRemoveFilter.Invoke ();
+		}
+
+
+	}
+
+	public void GetCategoryToggel ()
+	{
+		if (CategoryToggel.isOn)
+		{
+			CategoryFilter.interactable = true;
+			FilterList ();
+		} else
+		{
+			CategoryFilter.interactable = false;
+			FilterList ();
+		}
+	}
+
+
+
+
+
+	#region Event Callers
+
+	void OnRegionTypeUpdate (RegionType _regionType)
+	{
+		if (onUpdate != null)
+			onUpdate.Invoke (_regionType);
+
+	}
+
+	void OnRegionTypeClick (RegionType _regionType)
+	{
+		if (onClick != null)
+			onClick.Invoke (_regionType);
+	}
+
+
+	#endregion
+
 	void clearList ()
 	{
-		if (regionDisplays == null)
-			regionDisplays = new List<RegionDisplay> ();
-
-		foreach (var item in regionDisplays)
+		foreach (var item in regionDisplayList)
 		{
-			item.onClick -= onClickListItem;
-
+			item.onClick -= OnRegionTypeClick;
 		}
 
 		for (int i = 0; i < target.childCount; i++)
@@ -75,14 +189,19 @@ public class RegionTypeListDisplay : MonoBehaviour
 				Destroy (target.GetChild (i).gameObject);
 			}
 		}
-  
+
 	}
 
+	void OnDestroy ()
+	{
+		clearList ();
+	}
 
 	public void destroy ()
 	{
-		clearList ();
+
 		Destroy (gameObject);
 	}
+
 
 }

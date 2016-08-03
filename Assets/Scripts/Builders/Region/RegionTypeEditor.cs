@@ -9,59 +9,22 @@ public class RegionTypeEditor : MonoBehaviour
 	public Register register;
 	public InputField displaynameInput;
 	public InputField descriptionInput;
+	public Dropdown categoryInput;
+	public Dropdown sizeInput;
 	public ResourceTypeListBuilder avaiableResourcesBuilder;
 	public StructureTypeListBuilder availableStructuresBuilder;
 	public StructureTypeListBuilder defaultStructureBuilder;
 	public RegionTypeListBuilder upgradesBuilder;
 
-	//	#region Delegates & Events
-	//
-	//	public delegate void RegionTypeEditorOK ();
-	//
-	//	public event RegionTypeEditorOK onClickOK;
-	//
-	//	public delegate void RegionTypeEditorCancel ();
-	//
-	//	public event RegionTypeEditorCancel onClickCancel;
-	//
-	//	public delegate void RegionTypeEditorPrevious (RegionType _regiontype);
-	//
-	//	public event RegionTypeEditorPrevious onClickPrevious;
-	//
-	//	public delegate void RegionTypeEditorNext (RegionType _regiontype);
-	//
-	//	public event RegionTypeEditorNext onClickNext;
-	//
-	//	#endregion
-	//
-	//	#region Event Callers
-	//
-	//	public void ClickOK ()
-	//	{
-	//		if (onClickOK != null)
-	//			onClickOK.Invoke ();
-	//
-	//	}
-	//
-	//	public void ClickCancel ()
-	//	{
-	//		if (onClickCancel != null)
-	//			onClickCancel.Invoke ();
-	//	}
-	//
-	//	public void ClickNext ()
-	//	{
-	//		if (onClickNext != null)
-	//			onClickNext.Invoke (regiontype);
-	//	}
-	//
-	//	public void ClickPrevious ()
-	//	{
-	//		if (onClickPrevious != null)
-	//			onClickPrevious.Invoke (regiontype);
-	//	}
-	//
-	//	#endregion
+
+	void Start ()
+	{
+		if (categoryInput != null)
+		{
+			categoryInput.ClearOptions ();
+			categoryInput.AddOptions (RegionType.getCategories ());
+		}
+	}
 
 	public void Prime (RegionType _regionType)
 	{
@@ -71,6 +34,11 @@ public class RegionTypeEditor : MonoBehaviour
 			displaynameInput.text = regiontype.name;
 		if (descriptionInput != null)
 			descriptionInput.text = regiontype.descriptions;
+		if (categoryInput != null)
+			categoryInput.value = (int)regiontype.Category;
+		if (sizeInput != null)
+			sizeInput.value = regiontype.size;
+		
 
 		if (avaiableResourcesBuilder != null)
 		{
@@ -114,6 +82,13 @@ public class RegionTypeEditor : MonoBehaviour
 
 		if (descriptionInput.text != null)
 			regiontype.descriptions = descriptionInput.text;
+
+		if (categoryInput != null)
+			regiontype.Category = (RegionCategory)categoryInput.value;
+
+		if (sizeInput != null)
+			regiontype.size = sizeInput.value;
+
 		
 	}
 

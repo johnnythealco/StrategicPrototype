@@ -32,7 +32,8 @@ public class Planet : Asset
 [System.Serializable]
 public class RegionType : Asset
 {
-	public int cost;
+	public int size;
+	public RegionCategory Category;
 
 	public List<string> availableStructures;
 	public List<string> defaultStructures;
@@ -47,9 +48,74 @@ public class RegionType : Asset
 		defaultStructures = new List<string> ();
 		availableResources = new List<string> ();
 		availableUpgrades = new List<string> ();
+	}
+
+	public static List<string> getCategories ()
+	{
+		return Enum.GetNames (typeof(RegionCategory)).ToList ();
+	}
+
+	public static List<string> GetNames (List<RegionType> _regionTypeList)
+	{
+		var result = new List<string> ();
+
+		foreach (var item  in _regionTypeList)
+		{			
+			result.Add (item.name);
+		}
+		return result;
+	}
+
+	public static List<RegionType> FilterListByCategory (List<RegionType> _regionTypeList, RegionCategory _category)
+	{
+		var result = new List<RegionType> ();
+
+		foreach (var item  in _regionTypeList)
+		{
+			if (item.Category == _category)
+				result.Add (item);
+
+		}
+		return result;
+	}
+
+	public static List<RegionType>  SearchList (List<RegionType> _List, string _keyword)
+	{
+		var result = new List<RegionType> ();
+
+		var resultList = GetNames (_List).FindAll (delegate(string _string)
+		{
+			return  _string.Contains (_keyword);
+		});
+
+		foreach (var name in resultList)
+		{
+			foreach (var region in _List)
+			{
+				if (region.name == name)
+					result.Add (region);
+			}
+		}
+
+		return result;
+
 
 	}
+
 	
+}
+
+public enum RegionCategory
+{
+	Space = 0,
+	Asteroid = 1,
+	Rocky = 2,
+	Atmospheric = 3,
+	Oceanic = 4,
+	Grassland = 5,
+	Desert = 6,
+	Arctic = 7,
+	Volcanic = 8
 }
 #endregion
 
@@ -121,9 +187,9 @@ public class StructureType : Asset
 	{
 		var result = new List<StructureType> ();
 
-		var resultList = GetNames (_List).FindAll (delegate(string s)
+		var resultList = GetNames (_List).FindAll (delegate(string _string)
 		{
-			return s.Contains (_keyword);
+			return  _string.Contains (_keyword);
 		});
 
 		foreach (var name in resultList)

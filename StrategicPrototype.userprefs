@@ -1,18 +1,14 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Builders\Structure\StructureTypeEditor.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\JKMenu.cs">
     <Files>
-      <File FileName="Assets\Scripts\GameDevelopment\JKTesting.cs" Line="16" Column="25" />
-      <File FileName="Assets\Scripts\DataStructure\ResourceType.cs" Line="106" Column="3" />
-      <File FileName="Assets\Scripts\Builders\Resource\ResourceTypeListEditor.cs" Line="12" Column="27" />
-      <File FileName="Assets\Scripts\Views\ItemViews\ResourceDisplay.cs" Line="35" Column="3" />
-      <File FileName="Assets\Scripts\Views\ItemViews\ResourceTypeDisplay.cs" Line="14" Column="2" />
-      <File FileName="Assets\Scripts\Builders\Structure\StructureTypeEditor.cs" Line="112" Column="68" />
-      <File FileName="Assets\Scripts\DataStructure\StarSystem.cs" Line="120" Column="92" />
-      <File FileName="Assets\Scripts\Views\ItemViews\StructureDisplay.cs" Line="27" Column="50" />
-      <File FileName="Assets\Scripts\Views\ListViews\StructureTypeListDisplay.cs" Line="157" Column="1" />
-      <File FileName="Assets\Scripts\Builders\Structure\StructureTypeListEditor.cs" Line="28" Column="37" />
-      <File FileName="Assets\Scripts\Builders\Resource\ResourceTypeEditor.cs" Line="59" Column="66" />
+      <File FileName="Assets\Scripts\GameDevelopment\JKTesting.cs" Line="19" Column="30" />
+      <File FileName="Assets\Scripts\DataStructure\StarSystem.cs" Line="69" Column="31" />
+      <File FileName="Assets\Scripts\Builders\Game\AssetManager.cs" Line="12" Column="1" />
+      <File FileName="Assets\Scripts\Views\ListViews\StructureTypeListDisplay.cs" Line="207" Column="1" />
+      <File FileName="Assets\Scripts\Views\ListViews\RegionTypeListDisplay.cs" Line="11" Column="2" />
+      <File FileName="Assets\Scripts\Builders\Region\RegionTypeListEditor.cs" Line="88" Column="19" />
+      <File FileName="Assets\JKMenu.cs" Line="9" Column="31" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -85,7 +85,7 @@ public class RegionTypeListEditor : MonoBehaviour
 	public void Cancel ()
 	{
 
-		regionListDisplay.gameObject.SetActive (false);
+		regionTypeEditor.gameObject.SetActive (false);
 		navagationBar.SetActive (false);
 		regionListDisplay.Prime (regionTypeList);
 		regionListDisplay.gameObject.SetActive (true);

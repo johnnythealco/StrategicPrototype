@@ -23,22 +23,6 @@ public class StructureTypeEditor : MonoBehaviour
 
 	public event StructureTypeUpdateDelegate onUpdateType;
 
-	public delegate void StructureTypeUpdateCompleteDelegate (StructureType _structureType);
-
-	public event StructureTypeUpdateCompleteDelegate onComplete;
-
-	public delegate void StructureTypeUpdateCancelDelegate (StructureType _structureType);
-
-	public event StructureTypeUpdateCancelDelegate onCancel;
-
-	public delegate void StructureTypeNextDelegate (StructureType _structureType);
-
-	public event StructureTypeNextDelegate onNext;
-
-	public delegate void StructureTypePreviousDelegate (StructureType _structureType);
-
-	public event StructureTypePreviousDelegate onPrevious;
-
 	#endregion
 
 
@@ -112,17 +96,6 @@ public class StructureTypeEditor : MonoBehaviour
 			structureType.Category = (StructureCategory)categoryInput.value;
 	}
 
-	public void complete ()
-	{
-		if (onComplete != null)
-			onComplete.Invoke (structureType); 
-	}
-
-	public void cancel ()
-	{
-		if (onCancel != null)
-			onCancel.Invoke (structureType);
-	}
 
 	void OnDestroy ()
 	{
@@ -134,24 +107,5 @@ public class StructureTypeEditor : MonoBehaviour
 	{
 		Destroy (gameObject);
 	}
-
-	public void Next ()
-	{
-		if (onNext != null)
-			onNext.Invoke (structureType);
-	}
-
-	public void Previous ()
-	{
-		if (onPrevious != null)
-			onPrevious.Invoke (structureType);
-	}
-
-
-
-
-
-	
-
 	 
 }
