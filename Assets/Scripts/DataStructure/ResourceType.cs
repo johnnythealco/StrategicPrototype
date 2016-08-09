@@ -29,6 +29,14 @@ public class ResourceType : Asset
 		this.level = 0;
 	}
 
+	public ResourceType (ResourceType _resourceType)
+	{
+		this.name = _resourceType.name;
+		this.descriptions = _resourceType.descriptions;
+		this.Category = _resourceType.Category;
+		this.level = _resourceType.level;
+	}
+
 	public static List<string> getCategories ()
 	{
 		return Enum.GetNames (typeof(ResourceCategory)).ToList ();

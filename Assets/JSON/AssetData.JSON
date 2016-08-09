@@ -1,0 +1,240 @@
+{
+    "ResourceList": [
+        {
+            "name": "Credits",
+            "descriptions": "",
+            "smallImage": {
+                "instanceID": 0
+            },
+            "largeImage": {
+                "instanceID": 0
+            },
+            "Category": 0,
+            "level": 0
+        }
+    ],
+    "StructureList": [
+        {
+            "name": "Wheat Farms",
+            "descriptions": "",
+            "smallImage": {
+                "instanceID": 7426
+            },
+            "largeImage": {
+                "instanceID": 7426
+            },
+            "Category": 0,
+            "resourceCost": {
+                "list": [
+                    {
+                        "resource": "Comon Metals",
+                        "value": 0
+                    }
+                ]
+            },
+            "inputs": {
+                "list": [
+                    {
+                        "resource": "Water",
+                        "value": 0
+                    }
+                ]
+            },
+            "outputs": {
+                "list": [
+                    {
+                        "resource": "Water",
+                        "value": 0
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Restuarant",
+            "descriptions": "",
+            "smallImage": {
+                "instanceID": 7426
+            },
+            "largeImage": {
+                "instanceID": 7426
+            },
+            "Category": 0,
+            "resourceCost": {
+                "list": [
+                    {
+                        "resource": "Comon Metals",
+                        "value": 0
+                    }
+                ]
+            },
+            "inputs": {
+                "list": [
+                    {
+                        "resource": "Basic Food",
+                        "value": 0
+                    },
+                    {
+                        "resource": "Plants",
+                        "value": 0
+                    },
+                    {
+                        "resource": "Animals",
+                        "value": 0
+                    },
+                    {
+                        "resource": "Water",
+                        "value": 0
+                    }
+                ]
+            },
+            "outputs": {
+                "list": [
+                    {
+                        "resource": "Luxury Food",
+                        "value": 0
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Vinyard",
+            "descriptions": "",
+            "smallImage": {
+                "instanceID": 7426
+            },
+            "largeImage": {
+                "instanceID": 7426
+            },
+            "Category": 0,
+            "resourceCost": {
+                "list": [
+                    {
+                        "resource": "Comon Metals",
+                        "value": 0
+                    },
+                    {
+                        "resource": "Plants",
+                        "value": 0
+                    }
+                ]
+            },
+            "inputs": {
+                "list": [
+                    {
+                        "resource": "Water",
+                        "value": 0
+                    },
+                    {
+                        "resource": "Plants",
+                        "value": 0
+                    }
+                ]
+            },
+            "outputs": {
+                "list": [
+                    {
+                        "resource": "Wine",
+                        "value": 0
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Apartment Block",
+            "descriptions": "",
+            "smallImage": {
+                "instanceID": 7426
+            },
+            "largeImage": {
+                "instanceID": 7426
+            },
+            "Category": 0,
+            "resourceCost": {
+                "list": [
+                    {
+                        "resource": "Comon Metals",
+                        "value": 0
+                    }
+                ]
+            },
+            "inputs": {
+                "list": []
+            },
+            "outputs": {
+                "list": []
+            }
+        }
+    ],
+    "RegionList": [
+        {
+            "name": "Orbital Space",
+            "descriptions": "",
+            "smallImage": {
+                "instanceID": 0
+            },
+            "largeImage": {
+                "instanceID": 0
+            },
+            "size": 0,
+            "Category": 0,
+            "availableStructures": [],
+            "defaultStructures": [],
+            "availableResources": [],
+            "availableUpgrades": []
+        },
+        {
+            "name": "Grassland",
+            "descriptions": "",
+            "smallImage": {
+                "instanceID": 0
+            },
+            "largeImage": {
+                "instanceID": 0
+            },
+            "size": 0,
+            "Category": 0,
+            "availableStructures": [],
+            "defaultStructures": [],
+            "availableResources": [],
+            "availableUpgrades": []
+        },
+        {
+            "name": "Mountains",
+            "descriptions": "",
+            "smallImage": {
+                "instanceID": 0
+            },
+            "largeImage": {
+                "instanceID": 0
+            },
+            "size": 0,
+            "Category": 0,
+            "availableStructures": [
+                "Vinyard"
+            ],
+            "defaultStructures": [
+                "Vinyard"
+            ],
+            "availableResources": [
+                "Comon Metals"
+            ],
+            "availableUpgrades": []
+        },
+        {
+            "name": "Untitled",
+            "descriptions": "",
+            "smallImage": {
+                "instanceID": 0
+            },
+            "largeImage": {
+                "instanceID": 0
+            },
+            "size": 0,
+            "Category": 0,
+            "availableStructures": [],
+            "defaultStructures": [],
+            "availableResources": [],
+            "availableUpgrades": []
+        }
+    ]
+}

@@ -23,13 +23,13 @@ public class RegionTypeListEditor : MonoBehaviour
 		regionTypeEditor.gameObject.SetActive (false);
 		regionListDisplay.gameObject.SetActive (true);
 		regionListDisplay.Prime (regionTypeList);
-		regionListDisplay.onClick += onClickStructure;
+		regionListDisplay.onClick += onClickRegion;
 		navagationBar.SetActive (false);
 
 
 	}
 
-	void onClickStructure (RegionType _regionType)
+	void onClickRegion (RegionType _regionType)
 	{
 		selectedRegionType = _regionType;
 		var index = regionTypeList.IndexOf (_regionType);
@@ -44,7 +44,8 @@ public class RegionTypeListEditor : MonoBehaviour
 		newRegionType = new RegionType ();	
 		regionTypeList.Add (newRegionType);
 		regionListDisplay.gameObject.SetActive (false);	
-		regionTypeEditor.gameObject.SetActive (true);	
+		regionTypeEditor.gameObject.SetActive (true);
+		navagationBar.gameObject.SetActive (true);
 		regionTypeEditor.Prime (regionTypeList [regionTypeList.Count () - 1]);
 	
 

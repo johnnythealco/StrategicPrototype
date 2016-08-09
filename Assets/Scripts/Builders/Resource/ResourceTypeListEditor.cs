@@ -14,6 +14,7 @@ public class ResourceTypeListEditor : MonoBehaviour
 	public GameObject navagationBar;
 
 	ResourceType newResourceType;
+	ResourceType workingResourceType;
 	ResourceType selectedResourceType;
 	ResourceType backupResourceType;
 
@@ -27,7 +28,6 @@ public class ResourceTypeListEditor : MonoBehaviour
 		resourceListDisplay.Prime (workingList);
 		resourceListDisplay.onClick += onClickResource;
 		resourceListDisplay.onFilter += onFilterResourceList;
-		resourceListDisplay.onRemoveFilter += onFilterRemoved;
 		navagationBar.SetActive (false);
 	}
 
@@ -35,20 +35,6 @@ public class ResourceTypeListEditor : MonoBehaviour
 	{			
 		workingList = _resourceTypes;
 	}
-
-	void onFilterRemoved ()
-	{
-//		foreach (var item in mainList)
-//		{
-//			if (!workingList.Contains (item))
-//			{
-//				workingList.Add (item);
-//			}
-//		}
-//		Prime (workingList);
-
-	}
-
 
 	void onClickResource (ResourceType _resourceType)
 	{
@@ -76,8 +62,6 @@ public class ResourceTypeListEditor : MonoBehaviour
 		resourceTypeEditor.Prime (workingList [workingList.Count () - 1]);
 		selectedResourceType = workingList [workingList.Count () - 1];
 		navagationBar.SetActive (true);
-
-
 	}
 
 	public void Previous ()
@@ -161,7 +145,6 @@ public class ResourceTypeListEditor : MonoBehaviour
 	{
 		resourceListDisplay.onClick -= onClickResource;
 		resourceListDisplay.onFilter -= onFilterResourceList;
-		resourceListDisplay.onRemoveFilter -= onFilterRemoved;
 	}
 
 	void OnDestroy ()
