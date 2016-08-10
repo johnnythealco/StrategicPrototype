@@ -4,6 +4,10 @@ using System.Linq;
 using System.IO;
 using System.Collections.Generic;
 
+//using System.Runtime.InteropServices;
+//using System.Runtime.Serialization.Formatters.Binary;
+
+
 public class AssetManager : MonoBehaviour
 {
 	public Register register;
@@ -12,10 +16,12 @@ public class AssetManager : MonoBehaviour
 	public RegionTypeListEditor regionList;
 	public ResourceTypeListEditor resourceList;
 
+
 	void Start ()
 	{
-
+		
 	}
+
 
 	public void PrimeRegions ()
 	{
@@ -76,21 +82,48 @@ public class AssetManager : MonoBehaviour
 		SaveData.StructureList = register.structureRegister.MasterList;
 
 		var JSON = JsonUtility.ToJson (SaveData, true);
-		File.WriteAllText (Application.dataPath + "/JSON/AssetData.JSON", JSON);
+
+		var saveDiag = new System.Windows.Forms.SaveFileDialog ();
+		saveDiag.FileName = "Export GameData.json";
+		saveDiag.Filter = "json files (*.json|*.json|All files(*.*)|*.*";
+		saveDiag.FilterIndex = 1;
+		saveDiag.InitialDirectory = Application.dataPath + "/JSON/";
+
+		saveDiag.ShowDialog ();
+
+		if (saveDiag.FileName != "")
+		{
+			System.IO.StreamWriter writer = new System.IO.StreamWriter (saveDiag.OpenFile ());
+			writer.WriteLine (JSON);
+			writer.Dispose ();
+			writer.Close ();
+		}
 	}
 
 	public void Load ()
 	{
-		if (File.Exists (Application.dataPath + "/JSON/AssetData.JSON"))
+		var loadDiag = new System.Windows.Forms.OpenFileDialog ();
+		loadDiag.Filter = "json files (*.json|*.json|All files(*.*)|*.*";
+		loadDiag.FilterIndex = 1;
+		loadDiag.InitialDirectory = Application.dataPath + "/JSON/";
+
+		loadDiag.ShowDialog ();
+
+		if (loadDiag.FileName != "")
 		{
-			var JSON = File.ReadAllText (Application.dataPath + "/JSON/AssetData.JSON");
+			System.IO.StreamReader reader = new System.IO.StreamReader (loadDiag.OpenFile ());
+			var JSON = reader.ReadToEnd ();
+			reader.Dispose ();
+			reader.Close ();
+		
+
 			var SaveData = JsonUtility.FromJson < AssetData > (JSON);
 
 			register.resourceTypeRegister.MasterList = SaveData.ResourceList;
 			register.regionTypeRegister.MasterList = SaveData.RegionList;
 			register.structureRegister.MasterList = SaveData.StructureList;
-
 		}
+
 	}
 
 }

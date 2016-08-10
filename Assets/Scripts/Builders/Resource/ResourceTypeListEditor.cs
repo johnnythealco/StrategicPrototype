@@ -44,13 +44,9 @@ public class ResourceTypeListEditor : MonoBehaviour
 		resourceTypeEditor.gameObject.SetActive (true);
 		resourceTypeEditor.Prime (workingList [index]);
 		navagationBar.SetActive (true);
-		resourceTypeEditor.onUpdateType += onUpdateResourceType;
 	}
 
-	void onUpdateResourceType (ResourceType _resource)
-	{
-		
-	}
+
 
 	public void CreateResourceType ()
 	{

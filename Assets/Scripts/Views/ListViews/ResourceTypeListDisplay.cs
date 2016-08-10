@@ -75,8 +75,6 @@ public class ResourceTypeListDisplay : MonoBehaviour
 			listItem.Prime (resource);
 			listItem.gameObject.tag = "ResourceDisplay";
 			listItem.onClick += OnResourceTypeClick;
-			listItem.onUpdate += OnResourceTypeUpdate;
-
 			resourceDisplayList.Add (listItem);		
 
 		}
@@ -97,7 +95,6 @@ public class ResourceTypeListDisplay : MonoBehaviour
 			listItem.Prime (resource);
 			listItem.gameObject.tag = "ResourceDisplay";
 			listItem.onClick += OnResourceTypeClick;
-			listItem.onUpdate += OnResourceTypeUpdate;
 
 			resourceDisplayList.Add (listItem);		
 

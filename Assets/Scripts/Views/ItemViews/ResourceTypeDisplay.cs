@@ -22,8 +22,6 @@ public class ResourceTypeDisplay : MonoBehaviour
 
 	public event ResourceTypeDisplayDelegate onClick;
 
-	public event ResourceTypeDisplayDelegate onUpdate;
-
 	public event ResourceTypeDisplayDelegate onDelete;
 
 

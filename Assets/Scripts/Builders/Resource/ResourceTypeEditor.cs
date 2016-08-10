@@ -31,6 +31,7 @@ public class ResourceTypeEditor : MonoBehaviour
 
 	public event ResourceTypeDisplayDelegate onDeleteResourceType;
 
+
 	#endregion
 
 	public void Prime (ResourceType _resourceType)
@@ -51,8 +52,7 @@ public class ResourceTypeEditor : MonoBehaviour
 	public void GetInput ()
 	{
 
-		if (displaynameInput != null)
-			resourceType.name = displaynameInput.text;	
+
 		if (descriptionInput != null)
 			resourceType.descriptions = descriptionInput.text;
 		if (categoryInput != null)
@@ -61,6 +61,20 @@ public class ResourceTypeEditor : MonoBehaviour
 			resourceType.level = levelInput.value;
 
 		InputUpdate ();
+	}
+
+	public void GetNameInput ()
+	{
+		if (displaynameInput != null)
+		{
+			if (displaynameInput.text != resourceType.name)
+			{
+				var originalName = resourceType.name;
+				var newName = displaynameInput.text;
+				Game.Manager.register.RenameResource (originalName, newName);
+				resourceType.name = displaynameInput.text;
+			}
+		}
 	}
 
 

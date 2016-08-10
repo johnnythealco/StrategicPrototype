@@ -50,6 +50,81 @@ public class Register : ScriptableObject
 
 	}
 
+
+	public void RenameResource (string originalName, string newName)
+	{
+		var structures = structureRegister.MasterList;
+		var regions = regionTypeRegister.MasterList;
+
+		foreach (var structure in structures)
+		{
+			foreach (var resource in structure.inputs.list)
+			{
+				if (resource.resource == originalName)
+					resource.resource = newName;
+			}
+
+			foreach (var resource in structure.outputs.list)
+			{
+				if (resource.resource == originalName)
+					resource.resource = newName;
+			}
+
+			foreach (var resource in structure.resourceCost.list)
+			{
+				if (resource.resource == originalName)
+					resource.resource = newName;
+			}
+				
+		}
+
+		foreach (var region in regions)
+		{
+			if (region.availableResources.Contains (originalName))
+			{
+				region.availableResources.Remove (originalName);
+				region.availableResources.Add (newName);
+			}	
+		}
+	}
+
+	public void RenameStructure (string originalName, string newName)
+	{
+
+		var regions = regionTypeRegister.MasterList;
+
+		foreach (var region in regions)
+		{
+			if (region.availableStructures.Contains (originalName))
+			{
+				region.availableStructures.Remove (originalName);
+				region.availableStructures.Add (newName);
+			}
+
+			if (region.defaultStructures.Contains (originalName))
+			{
+				region.defaultStructures.Remove (originalName);
+				region.defaultStructures.Add (newName);
+			}	
+		}
+	}
+
+	public void RenameRegion (string originalName, string newName)
+	{
+
+		var regions = regionTypeRegister.MasterList;
+
+		foreach (var region in regions)
+		{
+			if (region.availableUpgrades.Contains (originalName))
+			{
+				region.availableUpgrades.Remove (originalName);
+				region.availableUpgrades.Add (newName);
+			}
+
+		}
+	}
+
 	#endregion
 }
 

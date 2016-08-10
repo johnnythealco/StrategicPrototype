@@ -56,7 +56,7 @@ public class RegionTypeEditor : MonoBehaviour
 		if (defaultStructureBuilder != null)
 		{
 			var defaultStructures = register.structureRegister.getStructureTypes (regiontype.defaultStructures);
-			availableStructuresBuilder.Prime (defaultStructures);
+			defaultStructureBuilder.Prime (defaultStructures);
 			defaultStructureBuilder.onListUpdate += DefaultStructureUpdate;
 		}
 
@@ -77,9 +77,6 @@ public class RegionTypeEditor : MonoBehaviour
 
 	public void getInput ()
 	{
-		if (displaynameInput.text != null)
-			regiontype.name = displaynameInput.text;
-
 		if (descriptionInput.text != null)
 			regiontype.descriptions = descriptionInput.text;
 
@@ -88,9 +85,24 @@ public class RegionTypeEditor : MonoBehaviour
 
 		if (sizeInput != null)
 			regiontype.size = sizeInput.value;
-
 		
 	}
+
+
+	public void GetnameInput ()
+	{
+		if (displaynameInput != null)
+		{
+			if (displaynameInput.text != regiontype.name)
+			{
+				var originalName = regiontype.name;
+				var newName = displaynameInput.text;
+				Game.Manager.register.RenameRegion (originalName, newName);
+				regiontype.name = displaynameInput.text;
+			}
+		}
+	}
+
 
 	void DefaultStructureUpdate (List<StructureType> _structureTypes)
 	{

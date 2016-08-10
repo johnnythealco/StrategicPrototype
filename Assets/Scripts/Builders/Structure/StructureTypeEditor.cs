@@ -88,14 +88,26 @@ public class StructureTypeEditor : MonoBehaviour
 
 	public void GetInput ()
 	{
-		if (displaynameInput != null)
-			structureType.name = displaynameInput.text;
+
 		if (descriptionInput != null)
 			structureType.descriptions = descriptionInput.text;
 		if (categoryInput != null)
 			structureType.Category = (StructureCategory)categoryInput.value;
 	}
 
+	public void GetnameInput ()
+	{
+		if (displaynameInput != null)
+		{
+			if (displaynameInput.text != structureType.name)
+			{
+				var originalName = structureType.name;
+				var newName = displaynameInput.text;
+				Game.Manager.register.RenameStructure (originalName, newName);
+				structureType.name = displaynameInput.text;
+			}
+		}
+	}
 
 	void OnDestroy ()
 	{
