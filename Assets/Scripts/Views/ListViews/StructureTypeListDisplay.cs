@@ -60,6 +60,7 @@ public class StructureTypeListDisplay : MonoBehaviour
 	public void Prime (List<StructureType> _structureTypes)
 	{
 		clearList ();
+		Game.Manager.register.structureRegister.SetDefaultIcon ();
 
 		workingList = _structureTypes;
 		fullList = workingList;

@@ -35,7 +35,7 @@ public class RegionTypeRegister : ScriptableObject
 		return result;
 	}
 
-	void OnEnable ()
+	public void SetDefaultIcon ()
 	{
 		if (defaultIcon == null)
 			return;
@@ -52,10 +52,12 @@ public class RegionTypeRegister : ScriptableObject
 				item.largeImage = defaultIcon;
 			}
 		}
-
 	}
 
+	void OnEnable ()
+	{
 
-
+		SetDefaultIcon ();
+	}
 
 }

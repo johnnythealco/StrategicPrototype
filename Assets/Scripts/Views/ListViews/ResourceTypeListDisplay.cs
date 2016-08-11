@@ -64,6 +64,7 @@ public class ResourceTypeListDisplay : MonoBehaviour
 
 	public void Prime (List<ResourceType> _resourceTypes)
 	{
+		Game.Manager.register.resourceTypeRegister.SetDefaultIcon ();
 		clearList ();
 
 		resourceTypes = _resourceTypes;

@@ -59,12 +59,12 @@
      <Compile Include="Assets\Scripts\Builders\Structure\StructureTypeListEditor.cs" />
      <Compile Include="Assets\Scripts\DataStructure\Asset.cs" />
      <Compile Include="Assets\Scripts\DataStructure\AssetData.cs" />
-     <Compile Include="Assets\Scripts\DataStructure\RegionTypeRegister.cs" />
-     <Compile Include="Assets\Scripts\DataStructure\Register.cs" />
+     <Compile Include="Assets\Scripts\DataStructure\Registers\RegionTypeRegister.cs" />
+     <Compile Include="Assets\Scripts\DataStructure\Registers\Register.cs" />
+     <Compile Include="Assets\Scripts\DataStructure\Registers\ResourceTypeRegister.cs" />
+     <Compile Include="Assets\Scripts\DataStructure\Registers\StructureRegister.cs" />
      <Compile Include="Assets\Scripts\DataStructure\ResourceType.cs" />
-     <Compile Include="Assets\Scripts\DataStructure\ResourceTypeRegister.cs" />
      <Compile Include="Assets\Scripts\DataStructure\StarSystem.cs" />
-     <Compile Include="Assets\Scripts\DataStructure\StructureRegister.cs" />
      <Compile Include="Assets\Scripts\Game Management\Game.cs" />
      <Compile Include="Assets\Scripts\GameDevelopment\JKTesting.cs" />
      <Compile Include="Assets\Scripts\User Interaction\DragableMenu.cs" />

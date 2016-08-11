@@ -34,7 +34,7 @@ public class StructureRegister : ScriptableObject
 		return result;
 	}
 
-	void OnEnable ()
+	public void SetDefaultIcon ()
 	{
 		if (defaultIcon == null)
 			return;
@@ -51,8 +51,14 @@ public class StructureRegister : ScriptableObject
 				item.largeImage = defaultIcon;
 			}
 		}
-
 	}
+
+	void OnEnable ()
+	{
+
+		SetDefaultIcon ();
+	}
+
 
 
 }

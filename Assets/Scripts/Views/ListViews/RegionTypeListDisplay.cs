@@ -59,6 +59,7 @@ public class RegionTypeListDisplay : MonoBehaviour
 	public void Prime (List<RegionType> _regionTypes)
 	{
 		clearList ();
+		Game.Manager.register.regionTypeRegister.SetDefaultIcon ();
 
 		workingList = _regionTypes;
 		fullList = workingList;
