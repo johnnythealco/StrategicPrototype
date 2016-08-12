@@ -7,15 +7,17 @@ using System.Linq;
 
 public enum ResourceCategory
 {
-	Strategic = 0,
-	Population = 1,
-	Nutrition = 2,
-	Shelter = 3,
-	Comfort = 4
+	Core = 0,
+	Base = 1,
+	Strategic = 2,
+	Community = 3,
+	Health = 4,
+	Shelter = 5,
+	Luxury = 6
 }
 
 [System.Serializable]
-public class ResourceType : Asset
+public class ResourceType : Asset,IComparable
 {
 
 	public ResourceCategory Category;
@@ -35,6 +37,33 @@ public class ResourceType : Asset
 		this.descriptions = _resourceType.descriptions;
 		this.Category = _resourceType.Category;
 		this.level = _resourceType.level;
+	}
+
+	public int CompareTo (System.Object obj)
+	{
+		if (obj == null)
+			return 1;
+
+		ResourceType otherType = obj as ResourceType;
+
+		if (otherType != null)
+		{
+			int a = (int)this.Category;
+			int b = (int)otherType.Category;
+			if (a != b)
+			{
+				return a.CompareTo (b);
+			} else
+			{
+				string name_A = this.name;
+				string name_B = otherType.name;
+				return name_A.CompareTo (name_B);
+			}
+
+
+		} else
+			throw new ArgumentException ("Object is not a ResourceType");
+			
 	}
 
 	public static List<string> getCategories ()

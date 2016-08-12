@@ -25,6 +25,7 @@ public class ResourceTypeListEditor : MonoBehaviour
 		workingList = _resourceTypeList;
 		resourceTypeEditor.gameObject.SetActive (false);
 		resourceListDisplay.gameObject.SetActive (true);
+		workingList.Sort ();
 		resourceListDisplay.Prime (workingList);
 		resourceListDisplay.onClick += onClickResource;
 		resourceListDisplay.onFilter += onFilterResourceList;

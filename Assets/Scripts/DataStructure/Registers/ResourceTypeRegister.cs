@@ -7,11 +7,13 @@ public class ResourceTypeRegister : ScriptableObject
 {
 	public Sprite defaultIcon;
 
+	public Sprite coretIcon;
+	public Sprite baseIcon;
 	public Sprite StrategicIcon;
-	public Sprite PopulationIcon;
-	public Sprite NutritionIcon;
+	public Sprite CommunityIcon;
+	public Sprite HealthIcon;
 	public Sprite ShelterIcon;
-	public Sprite ComfortIcon;
+	public Sprite LuxuryIcon;
 		
 	public List<ResourceType> MasterList = new List<ResourceType> ();
 
@@ -74,27 +76,37 @@ public class ResourceTypeRegister : ScriptableObject
 			{
 			case 0:
 				{
-					icon = StrategicIcon;
+					icon = coretIcon;
 				}
 				break;
 			case 1:
 				{
-					icon = PopulationIcon;
+					icon = baseIcon;
 				}
 				break;
 			case 2:
 				{
-					icon = NutritionIcon;
+					icon = StrategicIcon;
 				}
 				break;
 			case 3:
 				{
-					icon = ShelterIcon;
+					icon = CommunityIcon;
 				}
 				break;
 			case 4:
 				{
-					icon = ComfortIcon;
+					icon = HealthIcon;
+				}
+				break;
+			case 5:
+				{
+					icon = ShelterIcon;
+				}
+				break;
+			case 6:
+				{
+					icon = LuxuryIcon;
 				}
 				break;
 			default:

@@ -32,8 +32,8 @@ public class ResourceDisplay : MonoBehaviour
 
 		if (displayname != null)
 			displayname.text = resource.resource;
-//		if (icon != null || resource.type.smallImage != null)
-//			icon.sprite = resource.type.smallImage;
+		if (icon != null && resource.type.smallImage != null)
+			icon.sprite = resource.type.smallImage;
 		if (value != null)
 			value.text = resource.value.ToString ();
 		if (valueInput != null)
